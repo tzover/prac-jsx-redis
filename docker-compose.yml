@@ -1,0 +1,44 @@
+version: "3.3"
+services:
+    ui1:
+        image: ui1-react-asn:1.0
+        container_name: ui1-react
+        build:
+            context: ./ui1
+            dockerfile: Dockerfile
+        volumes:
+            # - ./ui1/app:/home/app
+            - ./ui1/app/public:/home/app/public
+            - ./ui1/app/src:/home/app/src
+        ports:
+            - 3010:3000
+        tty: true
+        stdin_open: true
+    ui2:
+        image: ui2-react-asn:1.0
+        container_name: ui2-react
+        build:
+            context: ./ui2
+            dockerfile: Dockerfile
+        volumes:
+            # - ./ui2/app:/home/app
+            - ./ui2/app/public:/home/app/public
+            - ./ui2/app/src:/home/app/src
+        ports:
+            - 3020:3000
+        tty: true
+        stdin_open: true
+    redis:
+        image: redis:latest
+        container_name: redis-asn
+        volumes:
+            - redis-volume2:/data
+        ports:
+            - 6378:${REDIS_PORT}
+
+volumes:
+    redis-volume2:
+
+
+
+
